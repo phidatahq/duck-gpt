@@ -2,6 +2,7 @@ from textwrap import dedent
 
 from fastapi import APIRouter
 from pydantic import BaseModel
+from phidata.utils.log import logger
 from phidata.llm.duckdb.agent import create_duckdb_agent
 from phidata.llm.duckdb.connection import create_duckdb_connection
 from phidata.llm.duckdb.loader import load_s3_path_to_table
@@ -16,7 +17,10 @@ duckgpt_router = APIRouter(prefix=endpoints.DUCKGPT, tags=["duckgpt"])
 duckdb_connection = create_duckdb_connection()
 
 # -*- Create a DuckDB agent
-duckdb_agent = create_duckdb_agent(duckdb_connection=duckdb_connection)
+try:
+    duckdb_agent = create_duckdb_agent(duckdb_connection=duckdb_connection)
+except Exception as e:
+    logger.error("Failed to create DuckDB agent: {}".format(e))
 
 # -*- List of test datasets
 Tables = {
@@ -95,7 +99,11 @@ def duckgpt_query(duckgpt_request: DuckGptRequest):
     }
 
     # Generate response
-    result = duckdb_agent(inputs)
+    try:
+        result = duckdb_agent(inputs)
+    except Exception as e:
+        logger.error("Failed to generate response from agent: {}".format(e))
+        return DuckGptResponse(output=f"Failed to generate response from agent: {e}")
 
     # Get the output
     if "output" in result:
