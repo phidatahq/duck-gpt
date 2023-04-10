@@ -1,6 +1,6 @@
 FROM phidata/python:3.9.12
 
-ARG USER=duckgpt
+ARG USER=server
 ARG HOME_DIR=${USER_LOCAL_DIR}/${USER}
 ENV HOME_DIR=${HOME_DIR}
 # Add HOME_DIR to PYTHONPATH
