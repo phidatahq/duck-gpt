@@ -1,3 +1,5 @@
+from os import getenv
+
 from phidata.app.jupyter import JupyterLab
 from phidata.docker.resource.image import DockerImage
 
@@ -29,6 +31,8 @@ dev_jupyter_lab = JupyterLab(
     mount_workspace=True,
     # The jupyter_lab_config file is mounted when creating the image
     jupyter_config_file="/usr/local/jupyter/jupyter_lab_config.py",
+    # Get the OpenAI API key from the environment if available
+    env={"OPENAI_API_KEY": getenv("OPENAI_API_KEY", "")},
     # Read env variables from env/dev_jupyter_env.yml
     env_file=ws_settings.ws_root.joinpath("workspace/env/dev_jupyter_env.yml"),
     # Read secrets from secrets/dev_jupyter_secrets.yml
