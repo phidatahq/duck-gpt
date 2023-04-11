@@ -31,11 +31,11 @@ def get_openai_key() -> Optional[str]:
         api_key = st.sidebar.text_input(
             "OpenAI API key", placeholder="sk-***", key="api_key"
         )
-        if api_key != "sk-***" or api_key != "":
+        if api_key != "sk-***" or api_key != "" or api_key is not None:
             OPENAI_API_KEY = api_key
 
     # Store it in session state and environment variable
-    if OPENAI_API_KEY is not None:
+    if OPENAI_API_KEY is not None and OPENAI_API_KEY != "":
         st.session_state["OPENAI_API_KEY"] = OPENAI_API_KEY
         environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
