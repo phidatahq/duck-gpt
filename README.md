@@ -1,4 +1,4 @@
-## DuckGpt: Let GPT query your data using DuckDb
+## DuckGpt: Use GPT to query data using DuckDb
 
 This repo contains the code for running DuckGpt in 2 environments:
 
@@ -44,7 +44,7 @@ cp example.env .env
 The [workspace/dev](workspace/dev) directory contains the resources for the dev environment. Install [docker desktop](https://www.docker.com/products/docker-desktop) and run dev resources using:
 
 ```sh
-phi ws up dev:docker:app
+phi ws up
 ```
 
 Open [localhost:9095](http://localhost:9095) to view the App.
@@ -52,7 +52,7 @@ Open [localhost:9095](http://localhost:9095) to view the App.
 If something fails, try running again with debug logs:
 
 ```sh
-phi ws up dev:docker:app -d
+phi ws up -d
 ```
 
 ### Shut down workspace
